@@ -1,0 +1,106 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+<title>{% block title %}Dashboard{% endblock title %}</title>
+
+{% block navbar %}
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">CRM</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- Other items -->
+                    </ul>
+                    <ul class="navbar-nav">
+                         <li class="nav-item active">
+                            <button class="btn btn-danger">
+                                <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+{% endblock navbar %}
+
+
+
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Dashboard Overview</h2>
+        <div class="my-5">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#contactModal">Add New Contact</button>
+            <a href="{% url 'contact_list' %}" class="btn btn-info mx-3">Contact List</a>
+        </div>
+        <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="contactModalLabel">Add New Contact</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Contact</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+        <div class="row mb-4 mt-5">
+            <div class="col-md-3">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Contacts</h5>
+                        <p class="card-text">{{ total_contacts }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">New Leads</h5>
+                        <p class="card-text">{{ new_leads }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Contacted</h5>
+                        <p class="card-text">{{ contacted }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Qualified</h5>
+                        <p class="card-text">{{ qualified }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mt-3">
+                <div class="card bg-danger text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Converted</h5>
+                        <p class="card-text">{{ converted }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+<title>{% block title %}View Contact{% endblock title %}
+
+{% block content %}
+    <div class="container mt-5">
+        <a class="btn btn-success mb-5" href="{% url "dashboard" %}"><i class="fa-solid fa-arrow-left me-2"></i>Back to Dashboard</a>
+        <h2>Contact Details</h2>
+
+        <div class="mb-3">
+            <strong>Full Name:</strong> {{ contact.full_name }}
+        </div>
+        <div class="mb-3">
+            <strong>Email:</strong> {{ contact.email }}
+        </div>
+        <div class="mb-3">
+            <strong>Phone:</strong> {{ contact.phone }}
+        </div>
+        <div class="mb-3">
+            <strong>Company:</strong> {{ contact.company }}
+        </div>
+        <div class="mb-3">
+            <strong>Status:</strong> {{ contact.get_status_display }}
+        </div>
+        <div class="mb-3">
+            <strong>Notes:</strong> {{ contact.notes }}
+        </div>
+
+        <a href="{% url 'edit_contact' contact.id %}" class="btn btn-warning">Edit Contact</a>
+        <a href="{% url 'contact_list' %}" class="btn btn-secondary">Back to Contact List</a>
+    </div>
+{% endblock content %}
+
+
+{% block footer %}
+{% endblock footer %}

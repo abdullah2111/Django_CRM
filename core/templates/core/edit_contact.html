@@ -1,0 +1,99 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+<title>{% block title %}Edit Contact{% endblock title %}
+
+{% block content %}
+    <div class="container mt-5">
+        <a class="btn btn-success mb-5" href="{% url "dashboard" %}"><i class="fa-solid fa-arrow-left me-2"></i>Back to Dashboard</a>
+        <h2>Edit Contact</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="id_full_name" class="form-label">Full Name</label>
+                <input type="text" name="full_name" id="id_full_name" class="form-control" placeholder="Enter full name" value="{{ form.full_name.value|default:'' }}">
+                {% if form.full_name.errors %}
+                    <div class="text-danger">
+                        {% for error in form.full_name.errors %}
+                            <small>{{ error }}</small><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_email" class="form-label">Email</label>
+                <input type="email" name="email" id="id_email" class="form-control" placeholder="Enter email" value="{{ form.email.value|default:'' }}">
+                {% if form.email.errors %}
+                    <div class="text-danger">
+                        {% for error in form.email.errors %}
+                            <small>{{ error }}</small><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_phone" class="form-label">Phone</label>
+                <input type="text" name="phone" id="id_phone" class="form-control" placeholder="Enter phone number" value="{{ form.phone.value|default:'' }}">
+                {% if form.phone.errors %}
+                    <div class="text-danger">
+                        {% for error in form.phone.errors %}
+                            <small>{{ error }}</small><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_company" class="form-label">Company</label>
+                <input type="text" name="company" id="id_company" class="form-control" placeholder="Enter company name" value="{{ form.company.value|default:'' }}">
+                {% if form.company.errors %}
+                    <div class="text-danger">
+                        {% for error in form.company.errors %}
+                            <small>{{ error }}</small><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_status" class="form-label">Status</label>
+                <select name="status" id="id_status" class="form-select">
+                    {% for value, label in form.status.field.choices %}
+                        <option value="{{ value }}" {% if form.status.value == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.status.errors %}
+                    <div class="text-danger">
+                        {% for error in form.status.errors %}
+                            <small>{{ error }}</small><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_notes" class="form-label">Notes</label>
+                <textarea name="notes" id="id_notes" class="form-control" placeholder="Add some notes...">{{ form.notes.value|default:'' }}</textarea>
+                {% if form.notes.errors %}
+                    <div class="text-danger">
+                        {% for error in form.notes.errors %}
+                            <small>{{ error }}</small><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="{% url 'contact_list' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
